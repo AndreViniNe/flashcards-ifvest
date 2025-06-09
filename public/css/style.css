@@ -1,0 +1,224 @@
+/* public/css/style.css */
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  background-color: #f9f6fb;
+}
+
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  /* width: auto; */
+  padding: 0 1.4rem;
+  background-color: white;
+  border-right: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 5rem;
+  gap: 1rem;
+
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.sidebar li {
+  font-size: 1rem;
+  color: #222;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.sidebar li:hover {
+  color: #0074cc;
+}
+
+.sidebar li i {
+  font-size: 1.5rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.header h1 {
+  font-family: 'Georgia', serif;
+  font-size: 1.8rem;
+  color: #222;
+  margin-right: 2rem;
+}
+
+.header-search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6rem;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #f0f0f0;
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  width: 240px;
+}
+
+.search-bar input {
+  border: none;
+  background: none;
+  outline: none;
+  margin-left: 0.5rem;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.profile-icon {
+  font-size: 1.4rem;
+  color: #333;
+  cursor: pointer;
+}
+
+
+.flashcard-content {
+  flex: 1;
+  padding: 2rem 3rem;
+  background-color: #f9f6fb;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  font-family: 'Georgia', serif;
+}
+
+.filters {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  align-items: center;
+}
+
+.select {
+  padding: 0.6rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.simulado-btn {
+  margin-left: auto;
+  padding: 0.9rem 1.2rem;
+  background-color: black;
+  color: white;
+  border-radius: 14px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.flashcard {
+  background-color: #000;
+  color: white;
+  border-radius: 8px;
+  padding: 2rem;
+  position: relative;
+  margin-bottom: 2rem;
+  /* max-width: 600px; */
+}
+
+.categoria {
+  font-size: 0.9rem;
+  color: #ccc;
+  display: block;
+  margin-bottom: 0.8rem;
+}
+
+.pergunta {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+.ver-resposta {
+  background-color: #2e4e4e;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.interrogacao {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  background-color: white;
+  color: red;
+  font-size: 1.4rem;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.resposta-btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.acertou, .errou {
+  background-color: black;
+  color: white;
+  padding: 0.7rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+}
+
+.progresso {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+
+.seta-esquerda, .seta-direita {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: black;
+}

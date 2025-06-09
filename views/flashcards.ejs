@@ -1,0 +1,51 @@
+<!-- views/flashcards.ejs -->
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IFVest - Flashcards</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <%- include('partials/header') %>
+    <div class="container">
+      <%- include('partials/sidebar') %>
+      <main class="flashcard-content">
+        <h2 class="title">Flashcards</h2>
+
+        <div class="filters">
+          <select class="select">
+            <option>Matemática</option>
+          </select>
+          <select class="select">
+            <option>Fácil</option>
+          </select>
+          <a href="#" class="simulado-btn">ACESSAR SIMULADO</a>
+        </div>
+
+        <div class="flashcard">
+          <span class="categoria">Matemática: Álgebra</span>
+          <p class="pergunta">Qual é a fórmula de bháskara?</p>
+          <button class="ver-resposta">Ver resposta</button>
+          <div class="interrogacao">?</div>
+        </div>
+
+        <div class="resposta-btns">
+          <button class="acertou"><i class="fa-solid fa-thumbs-up"></i> Acertou</button>
+          <button class="errou"><i class="fa-solid fa-thumbs-down"></i> Errou</button>
+        </div>
+
+        <div class="progresso">
+          <button class="seta-esquerda"><i class="fa-solid fa-arrow-left"></i></button>
+          <p>Progresso:<br /><strong>3 de 15 revisados</strong></p>
+          <button class="seta-direita"><i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
