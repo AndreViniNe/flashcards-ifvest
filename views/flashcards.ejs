@@ -18,34 +18,30 @@
       <main class="flashcard-content">
         <h2 class="title">Flashcards</h2>
 
-        <div class="filters">
-          <select class="select">
-            <option>Matemática</option>
-          </select>
-          <select class="select">
-            <option>Fácil</option>
-          </select>
-          <a href="#" class="simulado-btn">ACESSAR SIMULADO</a>
-        </div>
-
-        <div class="flashcard">
-          <span class="categoria">Matemática: Álgebra</span>
-          <p class="pergunta">Qual é a fórmula de bháskara?</p>
-          <button class="ver-resposta">Ver resposta</button>
-          <div class="interrogacao">?</div>
-        </div>
-
-        <div class="resposta-btns">
-          <button class="acertou"><i class="fa-solid fa-thumbs-up"></i> Acertou</button>
-          <button class="errou"><i class="fa-solid fa-thumbs-down"></i> Errou</button>
-        </div>
-
-        <div class="progresso">
-          <button class="seta-esquerda"><i class="fa-solid fa-arrow-left"></i></button>
-          <p>Progresso:<br /><strong>3 de 15 revisados</strong></p>
-          <button class="seta-direita"><i class="fa-solid fa-arrow-right"></i></button>
-        </div>
+        <% if (flashcards && flashcards.length > 0) { %>
+          <% flashcards.forEach(card => { %>
+            <div class="flashcard">
+              <span class="categoria">
+                Matéria <%= card.materia_id %> | Subtópico <%= card.subtopico_id %>
+              </span>
+              <p class="pergunta"><%= card.pergunta %></p>
+              <button class="ver-resposta" onclick="this.nextElementSibling.classList.toggle('mostrar')">Ver resposta</button>
+              <div class="interrogacao">?</div>
+              <div class="resposta" style="display:none; margin-top:1rem;"><%= card.resposta %></div>
+            </div>
+          <% }) %>
+        <% } else { %>
+          <p>Nenhum flashcard encontrado para o filtro selecionado.</p>
+        <% } %>
       </main>
     </div>
+    <script>
+      document.querySelectorAll('.ver-resposta').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const resposta = btn.nextElementSibling.nextElementSibling;
+          if (resposta) resposta.style.display = resposta.style.display === 'none' ? 'block' : 'none';
+        });
+      });
+    </script>
   </body>
 </html>
