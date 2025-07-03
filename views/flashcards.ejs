@@ -1,4 +1,3 @@
-<!-- views/flashcards.ejs -->
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
@@ -16,31 +15,118 @@
     <div class="container">
       <%- include('partials/sidebar') %>
       <main class="flashcard-content">
-        <h2 class="title">Flashcards</h2>
+        
+        <div class="flashcard-header">
+          <a href="/" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Voltar para Seleção
+          </a>
+          <h2 class="title">Flashcards</h2>
+        </div>
 
+        <div id="flashcard-container">
+          <% if (flashcards && flashcards.length > 0) { %>
+            <% flashcards.forEach((card, index) => { %>
+              <!-- Adiciona a classe 'active' apenas no primeiro card -->
+              <div class="flashcard <%= index === 0 ? 'active' : '' %>" data-index="<%= index %>">
+                <div class="flashcard-inner">
+                  <div class="flashcard-front">
+                    <span class="categoria">
+                      Matéria: <%= card.Materia ? card.Materia.nome : card.materia_id %> | 
+                      Subtópico: <%= card.Subtopico ? card.Subtopico.nome : card.subtopico_id %>
+                    </span>
+                    <p class="pergunta"><%= card.pergunta %></p>
+                    <button class="ver-resposta">Ver resposta</button>
+                    <div class="interrogacao">?</div>
+                  </div>
+                  <div class="flashcard-back">
+                    <p class="resposta"><%= card.resposta %></p>
+                    <button class="ver-pergunta">Ver pergunta</button>
+                  </div>
+                </div>
+              </div>
+            <% }) %>
+          <% } else { %>
+            <p>Nenhum flashcard encontrado para o filtro selecionado.</p>
+            <a href="/" class="back-btn" style="margin-top: 1rem; display: inline-block;">Voltar para Seleção</a>
+          <% } %>
+        </div>
+
+        <!-- Controles de Navegação -->
         <% if (flashcards && flashcards.length > 0) { %>
-          <% flashcards.forEach(card => { %>
-            <div class="flashcard">
-              <span class="categoria">
-                Matéria <%= card.materia_id %> | Subtópico <%= card.subtopico_id %>
-              </span>
-              <p class="pergunta"><%= card.pergunta %></p>
-              <button class="ver-resposta" onclick="this.nextElementSibling.classList.toggle('mostrar')">Ver resposta</button>
-              <div class="interrogacao">?</div>
-              <div class="resposta" style="display:none; margin-top:1rem;"><%= card.resposta %></div>
-            </div>
-          <% }) %>
-        <% } else { %>
-          <p>Nenhum flashcard encontrado para o filtro selecionado.</p>
+          <div class="navigation-controls">
+            <button id="prev-btn" class="nav-btn"><i class="fas fa-chevron-left"></i> Anterior</button>
+            <span id="progress-indicator">1 / <%= flashcards.length %></span>
+            <button id="next-btn" class="nav-btn">Próximo <i class="fas fa-chevron-right"></i></button>
+          </div>
         <% } %>
       </main>
     </div>
+
     <script>
-      document.querySelectorAll('.ver-resposta').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const resposta = btn.nextElementSibling.nextElementSibling;
-          if (resposta) resposta.style.display = resposta.style.display === 'none' ? 'block' : 'none';
+      document.addEventListener('DOMContentLoaded', () => {
+        const flashcards = document.querySelectorAll('.flashcard');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const progressIndicator = document.getElementById('progress-indicator');
+        
+        const totalCards = flashcards.length;
+        let currentIndex = 0;
+
+        // Se não houver cards, não faz nada
+        if (totalCards === 0) return;
+
+        function updateView() {
+          // Esconde todos os cards e reseta a animação de virar
+          flashcards.forEach((card, index) => {
+            card.classList.remove('active');
+            card.classList.remove('flip'); 
+          });
+
+          // Mostra apenas o card atual
+          flashcards[currentIndex].classList.add('active');
+
+          // Atualiza o indicador de progresso
+          progressIndicator.textContent = `${currentIndex + 1} / ${totalCards}`;
+
+          // Habilita/desabilita os botões de navegação
+          prevBtn.disabled = currentIndex === 0;
+          nextBtn.disabled = currentIndex === totalCards - 1;
+        }
+
+        // Evento para o botão "Próximo"
+        nextBtn.addEventListener('click', () => {
+          if (currentIndex < totalCards - 1) {
+            currentIndex++;
+            updateView();
+          }
         });
+
+        // Evento para o botão "Anterior"
+        prevBtn.addEventListener('click', () => {
+          if (currentIndex > 0) {
+            currentIndex--;
+            updateView();
+          }
+        });
+
+        // Lógica para virar o card (frente -> verso)
+        document.querySelectorAll('.ver-resposta').forEach(button => {
+          button.addEventListener('click', (event) => {
+            const flashcard = event.target.closest('.flashcard');
+            flashcard.classList.add('flip');
+          });
+        });
+
+        // Lógica para desvirar o card (verso -> frente)
+        document.querySelectorAll('.ver-pergunta').forEach(button => {
+          button.addEventListener('click', (event) => {
+            const flashcard = event.target.closest('.flashcard');
+            flashcard.classList.remove('flip');
+          });
+        });
+
+        // Inicializa a visualização
+        updateView();
       });
     </script>
   </body>

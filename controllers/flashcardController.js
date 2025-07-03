@@ -1,5 +1,9 @@
+// controllers/flashcardController.js
 const db = require('../models');
 const Flashcard = db.Flashcard;
+// Importe os modelos que você quer incluir
+const Materia = db.Materia;
+const Subtopico = db.Subtopico;
 
 module.exports = {
   async listarFiltrados(req, res) {
@@ -10,7 +14,15 @@ module.exports = {
       if (subtopicoId) where.subtopico_id = subtopicoId;
       if (dificuldadeId) where.dificuldade_id = dificuldadeId;
 
-      const flashcards = await Flashcard.findAll({ where });
+      // A mudança principal está aqui: `include` para buscar os nomes
+      const flashcards = await Flashcard.findAll({
+        where,
+        include: [
+          { model: Materia, attributes: ['nome'] },
+          { model: Subtopico, attributes: ['nome'] }
+        ]
+      });
+      
       res.render('flashcards', { flashcards });
     } catch (error) {
       console.error(error);
