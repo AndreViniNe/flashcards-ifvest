@@ -1,0 +1,36 @@
+const sequelize = require('sequelize');
+const { Model } = require('sequelize')
+
+
+module.exports = (sequelize, DataTypes) => {
+  class Area extends Model {
+    static associate(models) {
+      this.hasMany(models.Topico, { foreignKey: 'id_area', as: 'Topico' })
+      this.hasMany(models.Flashcard, { foreignKey: 'id_area', as: 'Flashcard' })
+    }
+  }
+
+  Area.init({
+    id_area: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false
+    },
+    nome: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    descricao: {
+      type: DataTypes.STRING,
+      allowNull: true
+    }
+
+  }, {
+    sequelize,
+    modelName: 'Area',
+    tableName: 'Area'
+  })
+
+  return Area
+}

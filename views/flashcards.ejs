@@ -17,7 +17,7 @@
       <main class="flashcard-content">
         
         <div class="flashcard-header">
-          <a href="/" class="back-btn">
+          <a href="/flashcards/selecionar" class="back-btn">
             <i class="fas fa-arrow-left"></i> Voltar para Seleção
           </a>
           <h2 class="title">Flashcards</h2>
@@ -31,8 +31,8 @@
                 <div class="flashcard-inner">
                   <div class="flashcard-front">
                     <span class="categoria">
-                      Matéria: <%= card.Materia ? card.Materia.nome : card.materia_id %> | 
-                      Subtópico: <%= card.Subtopico ? card.Subtopico.nome : card.subtopico_id %>
+                      Matéria: <%= card.Area ? card.Area.nome : card.id_area %> | 
+                      Subtópico: <%= card.Topico ? card.Topico.nome : card.id_topico %>
                     </span>
                     <p class="pergunta"><%= card.pergunta %></p>
                     <button class="ver-resposta">Ver resposta</button>
@@ -47,7 +47,7 @@
             <% }) %>
           <% } else { %>
             <p>Nenhum flashcard encontrado para o filtro selecionado.</p>
-            <a href="/" class="back-btn" style="margin-top: 1rem; display: inline-block;">Voltar para Seleção</a>
+            <a href="/flashcards/selecionar" class="back-btn" style="margin-top: 1rem; display: inline-block;">Voltar para Seleção</a>
           <% } %>
         </div>
 

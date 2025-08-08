@@ -1,5 +1,12 @@
+
 module.exports = (sequelize, DataTypes) => {
   const Flashcard = sequelize.define('Flashcard', {
+    id_flashcards: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false,
+    },
     pergunta: {
       type: DataTypes.TEXT,
       allowNull: false,
@@ -9,13 +16,13 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     }
   }, {
-    tableName: 'flashcards'  // 👈 define o nome real da tabela
+    tableName: 'Flashcard'
   });
 
   Flashcard.associate = models => {
-    Flashcard.belongsTo(models.Materia);
-    Flashcard.belongsTo(models.Subtopico);
-    Flashcard.belongsTo(models.Dificuldade);
+    Flashcard.belongsTo(models.Area, { foreignKey: 'id_area' });
+    Flashcard.belongsTo(models.Topico, { foreignKey: 'id_topico' });
+    Flashcard.belongsTo(models.Dificuldade, { foreignKey: 'id_dificuldade' });
   };
 
   return Flashcard;

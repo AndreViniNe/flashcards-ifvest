@@ -1,28 +1,29 @@
 const express = require('express');
 const router = express.Router();
-const { Flashcard, Materia, Subtopico, Dificuldade } = require('../models');
+const { Flashcard, Area, Topico, Dificuldade } = require('../models');
 
 // Rota para a página de seleção de flashcards
-router.get('/selecionar-flashcards', async (req, res) => {
+router.get('/selecionar', async (req, res) => {
     try {
-        const materias = await Materia.findAll();
-        const subtopicos = await Subtopico.findAll();
+        const areas = await Area.findAll();
+        const topicos = await Topico.findAll();
         const dificuldades = await Dificuldade.findAll();
-        res.render('selecionar', { materias, subtopicos, dificuldades });
+        res.render('selecionar', { areas, topicos, dificuldades });
     } catch (error) {
         res.status(500).send('Erro ao carregar a página de seleção de flashcards.');
     }
 });
 
 
-// Rota para buscar flashcards com base nos filtros
-router.post('/revisar', async (req, res) => {
+
+// Rota para buscar e exibir flashcards com base nos filtros (GET /flashcards)
+router.get('/', async (req, res) => {
     try {
-        const { materia_id, subtopico_id, dificuldade_id } = req.body;
+        const { id_area, id_topico, id_dificuldade } = req.query;
         const where = {};
-        if (materia_id) where.materia_id = materia_id;
-        if (subtopico_id) where.subtopico_id = subtopico_id;
-        if (dificuldade_id) where.dificuldade_id = dificuldade_id;
+        if (id_area) where.id_area = id_area;
+        if (id_topico) where.id_topico = id_topico;
+        if (id_dificuldade) where.id_dificuldade = id_dificuldade;
 
         const flashcards = await Flashcard.findAll({ where });
         res.render('flashcards', { flashcards });
@@ -35,7 +36,7 @@ router.post('/revisar', async (req, res) => {
 router.get('/', async (req, res) => {
     try {
         const flashcards = await Flashcard.findAll({
-            include: [Materia, Subtopico, Dificuldade]
+            include: [Area, Topico, Dificuldade]
         });
         res.status(200).json(flashcards);
     } catch (error) {
@@ -46,13 +47,13 @@ router.get('/', async (req, res) => {
 // Rota para criar um novo flashcard (API)
 router.post('/', async (req, res) => {
     try {
-        const { pergunta, resposta, materia_id, subtopico_id, dificuldade_id } = req.body;
+        const { pergunta, resposta, id_area, id_topico, id_dificuldade } = req.body;
         const novoFlashcard = await Flashcard.create({
             pergunta,
             resposta,
-            materia_id,
-            subtopico_id,
-            dificuldade_id
+            id_area,
+            id_topico,
+            id_dificuldade
         });
         res.status(201).json(novoFlashcard);
     } catch (error) {
@@ -64,15 +65,15 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const { pergunta, resposta, materia_id, subtopico_id, dificuldade_id } = req.body;
+        const { pergunta, resposta, id_area, id_topico, id_dificuldade } = req.body;
         const [updated] = await Flashcard.update({
             pergunta,
             resposta,
-            materia_id,
-            subtopico_id,
-            dificuldade_id
+            id_area,
+            id_topico,
+            id_dificuldade
         }, {
-            where: { id: id }
+            where: { id_flashcards: id }
         });
 
         if (updated) {
@@ -91,7 +92,7 @@ router.delete('/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const deleted = await Flashcard.destroy({
-            where: { id: id }
+            where: { id_flashcards: id }
         });
 
         if (deleted) {

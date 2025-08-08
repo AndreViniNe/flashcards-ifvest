@@ -20,15 +20,16 @@
         <h2 class="title">Selecione o Conteúdo</h2>
 
         <form action="/flashcards" method="GET" class="filters">
-          <select name="materiaId" id="materia" class="select" required>
-            <option value="">Selecione a Matéria</option>
+
+          <select name="id_area" id="area" class="select" required>
+            <option value="">Selecione a Área</option>
           </select>
 
-          <select name="subtopicoId" id="subtopico" class="select">
-            <option value="">Selecione o Subtópico</option>
+          <select name="id_topico" id="topico" class="select">
+            <option value="">Selecione o Tópico</option>
           </select>
 
-          <select name="dificuldadeId" id="dificuldade" class="select">
+          <select name="id_dificuldade" id="dificuldade" class="select">
             <option value="">Selecione a Dificuldade</option>
           </select>
 
@@ -38,22 +39,23 @@
     </div>
 
     <script>
-      async function carregarMaterias() {
-        const res = await fetch('/materias');
-        const materias = await res.json();
-        const select = document.getElementById('materia');
-        materias.forEach(m => {
-          select.innerHTML += `<option value="${m.id}">${m.nome}</option>`;
+
+      async function carregarAreas() {
+        const res = await fetch('/areas');
+        const areas = await res.json();
+        const select = document.getElementById('area');
+        areas.forEach(a => {
+          select.innerHTML += `<option value="${a.id_area}">${a.nome}</option>`;
         });
       }
 
-      async function carregarSubtopicos(materiaId) {
-        const res = await fetch(`/subtopicos/${materiaId}`);
-        const subtopicos = await res.json();
-        const select = document.getElementById('subtopico');
-        select.innerHTML = '<option value="">Selecione o Subtópico</option>';
-        subtopicos.forEach(s => {
-          select.innerHTML += `<option value="${s.id}">${s.nome}</option>`;
+      async function carregarTopicos(id_area) {
+        const res = await fetch(`/topicos/${id_area}`);
+        const topicos = await res.json();
+        const select = document.getElementById('topico');
+        select.innerHTML = '<option value="">Selecione o Tópico</option>';
+        topicos.forEach(t => {
+          select.innerHTML += `<option value="${t.id_topico}">${t.nome}</option>`;
         });
       }
 
@@ -62,17 +64,18 @@
         const dificuldades = await res.json();
         const select = document.getElementById('dificuldade');
         dificuldades.forEach(d => {
-          select.innerHTML += `<option value="${d.id}">${d.nivel}</option>`;
+          select.innerHTML += `<option value="${d.id_dificuldade}">${d.nivel}</option>`;
         });
       }
 
-      document.getElementById('materia').addEventListener('change', (e) => {
-        const materiaId = e.target.value;
-        if (materiaId) carregarSubtopicos(materiaId);
+
+      document.getElementById('area').addEventListener('change', (e) => {
+        const id_area = e.target.value;
+        if (id_area) carregarTopicos(id_area);
       });
 
       window.onload = () => {
-        carregarMaterias();
+        carregarAreas();
         carregarDificuldades();
       };
     </script>

@@ -1,11 +1,11 @@
 {
   "development": {
-    "username": "postgres",
-    "password": "123456",
+    "username": "root",
+    "password": "12345678",
     "database": "ifvest2",
     "host": "localhost",
-    "dialect": "postgres",
-    "port": "5432"
+    "dialect": "mysql",
+    "port": "3306"
   },
   "test": {
     "username": "ifvestjc_user",
