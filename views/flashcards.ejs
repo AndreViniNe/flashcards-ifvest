@@ -30,10 +30,6 @@
               <div class="flashcard <%= index === 0 ? 'active' : '' %>" data-index="<%= index %>">
                 <div class="flashcard-inner">
                   <div class="flashcard-front">
-                    <span class="categoria">
-                      Matéria: <%= card.Area ? card.Area.nome : card.id_area %> | 
-                      Subtópico: <%= card.Topico ? card.Topico.nome : card.id_topico %>
-                    </span>
                     <p class="pergunta"><%= card.pergunta %></p>
                     <button class="ver-resposta">Ver resposta</button>
                     <div class="interrogacao">?</div>

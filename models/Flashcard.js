@@ -14,6 +14,11 @@ module.exports = (sequelize, DataTypes) => {
     resposta: {
       type: DataTypes.TEXT,
       allowNull: false,
+    },
+    visto_por_ultimo: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: null
     }
   }, {
     tableName: 'Flashcard'

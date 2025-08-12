@@ -100,15 +100,6 @@
   transform: rotateY(180deg);
 }
 
-.categoria {
-  font-size: 0.9rem;
-  color: #ccc;
-  position: absolute;
-  top: 1.5rem;
-  left: 2rem;
-  text-align: left;
-}
-
 .pergunta, .resposta {
   font-size: 1.5rem;
   font-weight: bold;
